@@ -1,11 +1,11 @@
 Package: LMWiRe
 Type: Package
-Title: What the Package Does (Title Case)
+Title: R Routines for Linear Model with Wide Response
 Version: 0.1.0
-Author: Who wrote it
+Author: person("Sebastien","Franceschini",email="sebastien.franceschini@student.uclouvain.be")
 Maintainer: The package maintainer <yourself@somewhere.net>
 Description: More about what it does (maybe more than one line)
     Use four spaces when indenting paragraphs within the Description.
-License: What license is it under?
+License: GPL-2
 Encoding: UTF-8
 LazyData: true
