@@ -1,19 +1,19 @@
 #' @export LMEffectMatrices
 #' @title Computing the Effect Matrices
-#' @description Runs a GLM model and decomposes the outcomes into effect matrices for each model terms
+#' @description Runs multiple ANOVA models and decomposes the responses into effect matrices for each model terms
 #'
-#' @param ResLMModelMatrix A list of 3 from \code{\link{LMModelMatrix}}
-#' @param outcomes A \emph{nxm} matrix with n observations and m response variables
+#' @param ResLMModelMatrix A list of 6 from \code{\link{LMModelMatrix}}
+#' @param responses A \emph{nxm} matrix with n observations and m response variables
 #' @param SS a logical whether to compute the effect percentage variations
 #' @param newSSmethod a logical whether to use the new optimized method to compute SS
 #' @param contrastList a list of contrast for each parameter. The function creates automatically the list by default
 #'
 #' @return A list with the following elements:
 #'  \describe{
-#'    \item{\code{formula}}{A formula object with the expression of the GLM used to predict the outcomes}
+#'    \item{\code{formula}}{A formula object with the expression of the GLM used to predict the responses}
 #'    \item{\code{design}}{A \emph{nxk} data frame with the "free encoded" experimental design.}
 #'    \item{\code{ModelMatrix}}{A \emph{nxK} model matrix specifically encoded for the ASCA-GLM method.}
-#'    \item{\code{outcomes}}{A \emph{nxm} matrix with n observations and m response variables}
+#'    \item{\code{responses}}{A \emph{nxm} matrix with n observations and m response variables}
 #'    \item{\code{effectMatrices}}{A list of \emph{p} effect matrices for each model terms}
 #'    \item{\code{modelMatrixByEffect}}{A list of \emph{p} model matrices by models terms }
 #'    \item{\code{predictedvalues}}{A \emph{nxm} matrix with the predicted values}
@@ -26,14 +26,14 @@
 #' @examples
 #'  data('UCH')
 #'  ResLMModelMatrix <- LMModelMatrix(formula=as.formula(UCH$formula),design=UCH$design)
-#'  LMEffectMatrices(ResLMModelMatrix,outcomes=UCH$outcomes)
+#'  LMEffectMatrices(ResLMModelMatrix,responses=UCH$responses)
 #'
 #' @import stringr
 #' @import plyr
 
 
 
-LMEffectMatrices = function(ResLMModelMatrix,outcomes,SS=TRUE,newSSmethod=TRUE,contrastList=NA){
+LMEffectMatrices = function(ResLMModelMatrix,responses,SS=TRUE,newSSmethod=TRUE,contrastList=NA){
 
   #Checking the object
   if(!is.list(ResLMModelMatrix)){stop("Argument ResLMModelMatrix is not a list")}
@@ -60,8 +60,8 @@ LMEffectMatrices = function(ResLMModelMatrix,outcomes,SS=TRUE,newSSmethod=TRUE,c
   length(effectMatrices) <- nEffect
   names(effectMatrices) <- covariateEffectsNamesUnique
 
-  #GLM decomposition calculated by using glm.fit and alply on outcomes
-  resGLM <- plyr::alply(outcomes, 2, function(xx) glm.fit(modelMatrix, xx))
+  #GLM decomposition calculated by using glm.fit and alply on responses
+  resGLM <- plyr::alply(responses, 2, function(xx) glm.fit(modelMatrix, xx))
   parameters <- t(plyr::laply(resGLM, function(xx) xx$coefficients))
   predictedValues <- t(plyr::laply(resGLM, function(xx) xx$fitted.values))
   residuals <- t(plyr::laply(resGLM, function(xx) xx$residuals))
@@ -81,7 +81,7 @@ LMEffectMatrices = function(ResLMModelMatrix,outcomes,SS=TRUE,newSSmethod=TRUE,c
                              ModelMatrixByEffect=ModelMatrixByEffect,
                              covariateEffectsNames=covariateEffectsNames,
                              covariateEffectsNamesUnique=covariateEffectsNamesUnique,
-                             outcomes=outcomes,
+                             responses=responses,
                              effectMatrices=effectMatrices,
                              predictedvalues=predictedValues,
                              residuals=residuals,
