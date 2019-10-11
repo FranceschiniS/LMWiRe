@@ -9,14 +9,14 @@ PlotLoadings(ResPCALMEffects, EffectNames, PCdim, ...)
 \arguments{
 \item{ResPCALMEffects}{A list from the function \code{\link{PCALMEffects}}}
 
-\item{EffectNames}{A character vector of the p effects to plot}
+\item{EffectNames}{A character vector of the \emph{x} effects to plot}
 
-\item{PCdim}{A vector of length p with the number of dimensions to draw for each effects}
+\item{PCdim}{A vector of length \emph{x} with the number of dimensions to draw for each effects}
 
 \item{...}{More arguments to the function \code{\link{DrawLoadings}}}
 }
 \value{
-A list of p graphs with the asked number of dimensions for each.
+A list of \emph{x} graphs with the asked number of dimensions for each.
 }
 \description{
 Plot the loadings from the ASCA, ASCA-E or APCA methods from PCALMEffects
@@ -25,7 +25,7 @@ Plot the loadings from the ASCA, ASCA-E or APCA methods from PCALMEffects
 
  data('UCH')
  ResLMModelMatrix = LMModelMatrix(formula=as.formula(UCH$formula),design=UCH$design)
- ResLMEffectMatrices = LMEffectMatrices(ResLMModelMatrix,outcomes=UCH$outcomes)
+ ResLMEffectMatrices = LMEffectMatrices(ResLMModelMatrix,responses=UCH$responses)
  ResPCALMEffects = PCALMEffects(ResLMEffectMatrices,method="ASCA-E")
  PlotLoadings(ResPCALMEffects,c("Citrate","Hippurate"),PCdim=c(2,3))
 }

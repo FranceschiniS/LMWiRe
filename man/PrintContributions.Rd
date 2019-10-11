@@ -7,25 +7,25 @@
 PrintContributions(ResPCALMEffects, nPC = 5)
 }
 \arguments{
-\item{ResPCALMEffects}{A ResPCALMEffects list from \code{\link{PCALMEffects}}}
+\item{ResPCALMEffects}{A ResPCALMEffects list from \code{\link{PCALMEffects}}. The SS must already have been computed.}
 
-\item{nPC}{The number of PC to print in the tables}
+\item{nPC}{The number of PC to print in the tables (5 by default)}
 }
 \value{
 A list of 3 :
 \describe{
-\item{\code{EffectTable}}{A matrix with variance percentage of each PC for each effect}
+\item{\code{EffectTable}}{A matrix with variance percentages of each PC for each effect}
 \item{\code{ContribTable}}{A matrix with the contribution of each PC to the total variance}
 \item{\code{Barplot}}{A barplot with the PCs which have the biggest contributions to the total variance}
 }
 }
 \description{
-Create a summary of the contribution of each effect and each of their Principal Component (PC) on the total variance. Additionnally plot a graph with the ordered contribution.
+Create a summary of the contribution of each effect and each of their Principal Component (PC) on the total variance. Additionnally plot a graph with the ordered contributions.
 }
 \examples{
 data('UCH')
 ResLMModelMatrix = LMModelMatrix(formula=as.formula(UCH$formula),design=UCH$design)
-ResLMEffectMatrices = LMEffectMatrices(ResLMModelMatrix,outcomes=UCH$outcomes)
+ResLMEffectMatrices = LMEffectMatrices(ResLMModelMatrix,responses=UCH$responses)
 ResPCALMEffects = PCALMEffects(ResLMEffectMatrices,method="ASCA-E")
 PrintContributions(ResPCALMEffects)
 }

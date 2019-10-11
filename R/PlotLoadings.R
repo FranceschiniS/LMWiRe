@@ -3,17 +3,17 @@
 #' @description Plot the loadings from the ASCA, ASCA-E or APCA methods from PCALMEffects
 #'
 #' @param ResPCALMEffects A list from the function \code{\link{PCALMEffects}}
-#' @param EffectNames A character vector of the p effects to plot
-#' @param PCdim A vector of length p with the number of dimensions to draw for each effects
+#' @param EffectNames A character vector of the \emph{x} effects to plot
+#' @param PCdim A vector of length \emph{x} with the number of dimensions to draw for each effects
 #' @param ... More arguments to the function \code{\link{DrawLoadings}}
 #'
-#' @return A list of p graphs with the asked number of dimensions for each.
+#' @return A list of \emph{x} graphs with the asked number of dimensions for each.
 #'
 #' @examples
 #'
 #'  data('UCH')
 #'  ResLMModelMatrix = LMModelMatrix(formula=as.formula(UCH$formula),design=UCH$design)
-#'  ResLMEffectMatrices = LMEffectMatrices(ResLMModelMatrix,outcomes=UCH$outcomes)
+#'  ResLMEffectMatrices = LMEffectMatrices(ResLMModelMatrix,responses=UCH$responses)
 #'  ResPCALMEffects = PCALMEffects(ResLMEffectMatrices,method="ASCA-E")
 #'  PlotLoadings(ResPCALMEffects,c("Citrate","Hippurate"),PCdim=c(2,3))
 
