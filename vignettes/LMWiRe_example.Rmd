@@ -80,15 +80,15 @@ data("UCH")
 
 # Data visualisation
 
-The UCH dataset stands for Urine-Citrate-Hippurate and comes from \textit{Rousseau et al.} It contains 3 elements : a matrix `outcomes` with 34 observations of 600 response variables representing the spectra from the H-NMR spectroscopy, a formula for the GLM model used and `design` matrix with 34 observations and 5 explanatory variables.
+The UCH dataset stands for Urine-Citrate-Hippurate and comes from \textit{Rousseau et al.} It contains 3 elements : a matrix `responses` with 34 observations of 600 response variables representing the spectra from the H-NMR spectroscopy, a formula for the GLM model used and `design` matrix with 34 observations and 5 explanatory variables.
 
-## Spectrum Visualization (= Outcomes)
+## Spectrum Visualization (= responses)
 
 The 600 response variables are the spectrum of the H-NMR for each observations. 
 
 ```{r Spectrum visualization}
 
-LinePlot(UCH$outcomes[1:2,],main="H-NMR spectrum")
+LinePlot(UCH$responses[1:2,],main="H-NMR spectrum")
 
 ```
 
@@ -116,10 +116,10 @@ table(UCH$design$Hippurate,UCH$design$Citrate,UCH$design$Time)
 
 ## Principal Component Analysis
 
-The function `SVDforPCA` is useful to compute a PCA decomposition of the `outcomes` matrix. The `scores` and `loadings` can then be plotted with the function `DrawScores` and `DrawLoadings`.
+The function `SVDforPCA` is useful to compute a PCA decomposition of the `responses` matrix. The `scores` and `loadings` can then be plotted with the function `DrawScores` and `DrawLoadings`.
 
 ```{r PCA}
-ResPCA = SVDforPCA(UCH$outcomes)
+ResPCA = SVDforPCA(UCH$responses)
 ```
 
 ```{r VariancesPercentages}
@@ -167,7 +167,7 @@ The model matrix can then be decompose into effect matrices for every model term
 
 ```{r EffectMatrices}
 
-ResLMEffectMatrices = LMEffectMatrices(ResLMModelMatrix,UCH$outcomes)
+ResLMEffectMatrices = LMEffectMatrices(ResLMModelMatrix,UCH$responses)
 
 ```
 
