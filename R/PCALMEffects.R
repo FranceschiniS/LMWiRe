@@ -1,11 +1,11 @@
 #' @export PCALMEffects
 #' @title PCA on the effect matrices
-#' @description Run a Principal Component Analysis on the effect matrices and adapt the result according to the method.
+#' @description Run a Principal Component Analysis on each effect matrices from \code{\link{LMEffectMatrices}} and adapt the result according to the method.
 #'
 #' @param ResLMEffectMatrices a ResLMEffectMatrices list from \code{\link{LMEffectMatrices}}
-#' @param method The method use to compute the PCA. One of \code{c("ASCA","APCA","ASCA-E")}
+#' @param method The method used to compute the PCA. One of \code{c("ASCA","APCA","ASCA-E")}
 #'
-#' @return A list of PCA results from \code{\link{SVDforPCA}} for each effect matrix. Those results contain :
+#' @return A list of \emph{p} PCA results from \code{\link{SVDforPCA}} for each effect matrix. Those results contain :
 #'  \describe{
 #'   \item{\code{scores}}{Scores from the PCA for each of the n components}
 #'   \item{\code{loadings}}{Loadings from the PCA for each of the n component}
@@ -16,11 +16,11 @@
 #'   \item{\code{cumvar}}{Cumulated explained variance of each of the n component}
 #'   \item{\code{original.dataset}}{Original dataset}
 #'  }
-#'  There are also others outputs :
+#'  There are also others outputs in :
 #'  \describe{
-#'  \item{\code{method}}{}
-#'  \item{\code{Type3Residuals}}{}
-#'  \item{\code{variationPercentages}}{}
+#'  \item{\code{method}}{The method used to compute the PCA. (Argument from this function)}
+#'  \item{\code{SS}}{A vector of length \emph{p} with the sum of squares for each effect}
+#'  \item{\code{variationPercentages}}{A vector of length \emph{(p-1)} with the percentage of variation explained by each effect}
 #'  }
 #'
 #' @details
@@ -28,7 +28,7 @@
 #'
 #'   \describe{
 #'   \item{ASCA}{The PCA is applied directly on the pure effect matrix}
-#'   \item{ASCA-E}{The PCA is applied directly on the pure effect matrix but scores are updated}
+#'   \item{ASCA-E}{The PCA is applied directly on the pure effect matrix but scores are updated afterward}
 #'   \item{APCA}{The PCA is applied on the augmented effect matrix}
 #'  }
 #' The ASCA-E method add the residual to the scores. APCA applied add the residuals to the effect matrix before the PCA.
@@ -36,18 +36,20 @@
 #' @examples
 #' data('UCH')
 #' ResLMModelMatrix = LMModelMatrix(formula=as.formula(UCH$formula),design=UCH$design)
-#' ResLMEffectMatrices = LMEffectMatrices(ResLMModelMatrix,outcomes=UCH$outcomes)
+#' ResLMEffectMatrices = LMEffectMatrices(ResLMModelMatrix,responses=UCH$responses)
 #' ResPCALMEffects = PCALMEffects(ResLMEffectMatrices,method="ASCA-E")
 #'  PlotScoresXY(ResPCALMEffects,UCH$design,EffectVector=c("Hippurate"),
 #'                varname.color=c("Citrate"),varname.pch=c("Time"))
-#'
+#' @seealso
+#' The method used in this function are developed in this article.
+#' Thiel M.,Feraud B. and Govaerts B. (2017) \emph{ASCA+ and APCA+: Extensions of ASCA and APCA in the analysis of unbalanced multifactorial designs}, Journal of Chemometrics
 
 PCALMEffects = function(ResLMEffectMatrices,method=c("ASCA","APCA","ASCA-E")){
 
   # Checking the ResLMEffectMatrices list
 
   checkname = c("formula","design","ModelMatrix","ModelMatrixByEffect","covariateEffectsNames",
-                "covariateEffectsNamesUnique","outcomes","effectMatrices",
+                "covariateEffectsNamesUnique","responses","effectMatrices",
                 "predictedvalues","residuals","parameters",
                 "SS","variationPercentages")
 
@@ -112,7 +114,7 @@ PCALMEffects = function(ResLMEffectMatrices,method=c("ASCA","APCA","ASCA-E")){
 
   names(ResPCALMEffects) = names(EffectMatGLM)
 
-  ResPCALMEffects = c(ResPCALMEffects,method=method,Type3Residuals=list(ResLMEffectMatrices$Type3Residuals),variationPercentages=list(ResLMEffectMatrices$variationPercentages))
+  ResPCALMEffects = c(ResPCALMEffects,method=method,SS=list(ResLMEffectMatrices$SS),variationPercentages=list(ResLMEffectMatrices$variationPercentages))
 
   return(ResPCALMEffects)
 }

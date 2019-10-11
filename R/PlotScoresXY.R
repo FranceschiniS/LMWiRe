@@ -2,9 +2,9 @@
 #' @title Plotting the scores from the PCALMEffects function
 #' @description Draw one or more graphs of the scores from a PCA. More specifically the result of the \code{\link{PCALMEffects}} function.
 #'
-#' @param ResPCALMEffects A list of p elements depending of the model terms from \code{\link{PCALMEffects}}
-#' @param design A n x d "free encoded" experimental design matrix with n observations and d the categorical variables.
-#' @param EffectVector A character vector of length l with the name of the model terms to plot
+#' @param ResPCALMEffects A list from \code{\link{PCALMEffects}}
+#' @param design A \emph{nxk} "free encoded" experimental design matrix with n observations and d the categorical variables.
+#' @param EffectVector A character vector of length \emph{p} with the name of the model terms to plot
 #' @param varname.color A character variable with the name of the model term to use as color
 #' @param varname.pch A character variable with the name of the model term to use as pch
 #' @param PCaxes A vector with the two PC to plot for every effects
@@ -17,7 +17,7 @@
 #' @examples
 #'  data('UCH')
 #'  ResLMModelMatrix = LMModelMatrix(formula=as.formula(UCH$formula),design=UCH$design)
-#'  ResLMEffectMatrices = LMEffectMatrices(ResLMModelMatrix,outcomes=UCH$outcomes)
+#'  ResLMEffectMatrices = LMEffectMatrices(ResLMModelMatrix,responses=UCH$responses)
 #'  ResPCALMEffects = PCALMEffects(ResLMEffectMatrices,method="ASCA-E")
 #'  PlotScoresXY(ResPCALMEffects = ResPCALMEffects, design = UCH$design,
 #'   EffectVector = c("Time","Hippurate"),varname.color = "Citrate", varname.pch = "Hippurate")

@@ -2,10 +2,10 @@
 #' @title Plotting a Scores Matrix
 #' @description Plot a matrix of scores graphs
 #'
-#' @param ResPCALMEffects A list of p+3 elements depending of the model terms from \code{\link{PCALMEffects}}
+#' @param ResPCALMEffects A list from the function \code{\link{PCALMEffects}}
 #' @param ModelAbbrev A logical whether to abbreviate the interaction terms
-#' @param design The nxk "free encoded" experimental design data frame
-#' @param EffectNames A character vector with the name of the effects to plot
+#' @param design The \emph{nxk} experimental design data frame encoded with categorical variables (=factors)
+#' @param EffectNames A character vector of length \emph{p} with the name of the effects to plot
 #' @param alleffect A logical whether to plot every effect
 #' @param PCdim A numeric vector with the same length than EffectNames and indicating the number of component to plot
 #' @param varname.colorup A character with the name of variable used to color the upper triangle
@@ -23,7 +23,7 @@
 #'
 #'  data('UCH')
 #'  ResLMModelMatrix = LMModelMatrix(formula=as.formula(UCH$formula),design=UCH$design)
-#'  ResLMEffectMatrices = LMEffectMatrices(ResLMModelMatrix,outcomes=UCH$outcomes)
+#'  ResLMEffectMatrices = LMEffectMatrices(ResLMModelMatrix,responses=UCH$responses)
 #'  ResPCALMEffects = PCALMEffects(ResLMEffectMatrices,method="ASCA-E")
 #'  PlotScoresMatrix(ResPCALMEffects,
 #'                  ModelAbbrev=FALSE,
@@ -32,13 +32,13 @@
 #'                  alleffect = FALSE,
 #'                  PCdim=c(2,2,2),
 #'                  varname.colorup = "Citrate",
-#'                  vec.colorup = c("red","blue","green"),
+#'                  vec.colorup = c("blue","forestgreen","red"),
 #'                  varname.pchup="Hippurate",
-#'                  vec.pchup=c(1,2,3),
-#'                  varname.pchdown = "Day",
-#'                  vec.pchdown = c(4,5),
+#'                  vec.pchup=c(4,16,2),
+#'                  varname.pchdown = "Time"
+#'                  vec.pchdown = c(1,3),
 #'                  varname.colordown="Time",
-#'                  vec.colordown = c("brown","grey"))
+#'                  vec.colordown = c("orange","black"))
 #'
 #' @import graphics grDevices
 #'

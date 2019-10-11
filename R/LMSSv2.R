@@ -13,7 +13,7 @@ L = listcontrast
 result = vector()
 var_percentage = vector()
 
-Y_withoutIntercept = ResLMEffectMatrices$outcomes - ResLMEffectMatrices$effectMatrices$Intercept
+Y_withoutIntercept = ResLMEffectMatrices$responses - ResLMEffectMatrices$effectMatrices$Intercept
 denom = norm(x=Y_withoutIntercept,"F")^2
 
 for(i in 1:length(L)){

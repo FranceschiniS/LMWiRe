@@ -8,11 +8,11 @@ PlotScoresXY(ResPCALMEffects, design, EffectVector, PCaxes = c(1, 2),
   varname.color, varname.pch, ...)
 }
 \arguments{
-\item{ResPCALMEffects}{A list of p elements depending of the model terms from \code{\link{PCALMEffects}}}
+\item{ResPCALMEffects}{A list from \code{\link{PCALMEffects}}}
 
-\item{design}{A n x d "free encoded" experimental design matrix with n observations and d the categorical variables.}
+\item{design}{A \emph{nxk} "free encoded" experimental design matrix with n observations and d the categorical variables.}
 
-\item{EffectVector}{A character vector of length l with the name of the model terms to plot}
+\item{EffectVector}{A character vector of length \emph{p} with the name of the model terms to plot}
 
 \item{PCaxes}{A vector with the two PC to plot for every effects}
 
@@ -34,7 +34,7 @@ Some messages from ggplot2 could be suppressed while we overwrite the graphs.
 \examples{
  data('UCH')
  ResLMModelMatrix = LMModelMatrix(formula=as.formula(UCH$formula),design=UCH$design)
- ResLMEffectMatrices = LMEffectMatrices(ResLMModelMatrix,outcomes=UCH$outcomes)
+ ResLMEffectMatrices = LMEffectMatrices(ResLMModelMatrix,responses=UCH$responses)
  ResPCALMEffects = PCALMEffects(ResLMEffectMatrices,method="ASCA-E")
  PlotScoresXY(ResPCALMEffects = ResPCALMEffects, design = UCH$design,
   EffectVector = c("Time","Hippurate"),varname.color = "Citrate", varname.pch = "Hippurate")

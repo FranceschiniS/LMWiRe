@@ -4,13 +4,13 @@
 \alias{LMEffectMatrices}
 \title{Computing the Effect Matrices}
 \usage{
-LMEffectMatrices(ResLMModelMatrix, outcomes, SS = TRUE,
+LMEffectMatrices(ResLMModelMatrix, responses, SS = TRUE,
   newSSmethod = TRUE, contrastList = NA)
 }
 \arguments{
-\item{ResLMModelMatrix}{A list of 3 from \code{\link{LMModelMatrix}}}
+\item{ResLMModelMatrix}{A list of 6 from \code{\link{LMModelMatrix}}}
 
-\item{outcomes}{A \emph{nxm} matrix with n observations and m response variables}
+\item{responses}{A \emph{nxm} matrix with n observations and m response variables}
 
 \item{SS}{a logical whether to compute the effect percentage variations}
 
@@ -21,25 +21,28 @@ LMEffectMatrices(ResLMModelMatrix, outcomes, SS = TRUE,
 \value{
 A list with the following elements:
 \describe{
-\item{\code{formula}}{A formula object with the expression of the GLM used to predict the outcomes}
+\item{\code{formula}}{A formula object with the expression of the GLM used to predict the responses}
 \item{\code{design}}{A \emph{nxk} data frame with the "free encoded" experimental design.}
 \item{\code{ModelMatrix}}{A \emph{nxK} model matrix specifically encoded for the ASCA-GLM method.}
-\item{\code{outcomes}}{A \emph{nxm} matrix with n observations and m response variables}
-\item{\code{effectMatrices}}{A list of \emph{p} effect matrices for each model terms}
-\item{\code{modelMatrixByEffect}}{A list of \emph{p} model matrices by models terms }
+\item{\code{ModelMatrixByEffect}}{A list of \emph{p} model matrices by models terms }
+\item{\code{covariateEffectsNames}}{A character vector with \emph{K} names of the coefficients}
+\item{\code{covariateEffectsNamesUnique}}{A character vector with the \emph{p} unique name of the model terms}
+\item{\code{responses}}{A \emph{nxm} matrix with n observations and m response variables}
+\item{\code{effectMatrices}}{A list of \emph{p} effect matrices for each model term}
 \item{\code{predictedvalues}}{A \emph{nxm} matrix with the predicted values}
 \item{\code{residuals}}{A \emph{nxm} matrix with the residuals}
 \item{\code{parameters}}{A \emph{pxm} matrix with the coefficients of every parameters by response variables}
-\item{\code{covariateEffectsNamesUnique}}{A character vector with the \emph{p} unique name of the model terms}
-\item{\code{covariateEffectsNames}}{A character vector with \emph{K} names of the coefficients}
+\item{\code{SS}}{A vector of length \emph{p} with the sum of squares for each effect}
+\item{\code{variationPercentages}}{A vector of length \emph{(p-1)} with the percentage of variation explained by each effect}
+
 }
 }
 \description{
-Runs a GLM model and decomposes the outcomes into effect matrices for each model terms
+Runs multiple ANOVA models and decomposes the responses into effect matrices for each model terms
 }
 \examples{
  data('UCH')
  ResLMModelMatrix <- LMModelMatrix(formula=as.formula(UCH$formula),design=UCH$design)
- LMEffectMatrices(ResLMModelMatrix,outcomes=UCH$outcomes)
+ LMEffectMatrices(ResLMModelMatrix,responses=UCH$responses)
 
 }

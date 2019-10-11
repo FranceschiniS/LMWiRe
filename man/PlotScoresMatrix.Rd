@@ -11,13 +11,13 @@ PlotScoresMatrix(ResPCALMEffects, ModelAbbrev = FALSE, design,
   vec.colordown = NULL, vec.pchup = NULL, vec.pchdown = NULL)
 }
 \arguments{
-\item{ResPCALMEffects}{A list of p+3 elements depending of the model terms from \code{\link{PCALMEffects}}}
+\item{ResPCALMEffects}{A list from the function \code{\link{PCALMEffects}}}
 
 \item{ModelAbbrev}{A logical whether to abbreviate the interaction terms}
 
-\item{design}{The nxk "free encoded" experimental design data frame}
+\item{design}{The \emph{nxk} experimental design data frame encoded with categorical variables (=factors)}
 
-\item{EffectNames}{A character vector with the name of the effects to plot}
+\item{EffectNames}{A character vector of length \emph{p} with the name of the effects to plot}
 
 \item{alleffect}{A logical whether to plot every effect}
 
@@ -49,7 +49,7 @@ Plot a matrix of scores graphs
 
  data('UCH')
  ResLMModelMatrix = LMModelMatrix(formula=as.formula(UCH$formula),design=UCH$design)
- ResLMEffectMatrices = LMEffectMatrices(ResLMModelMatrix,outcomes=UCH$outcomes)
+ ResLMEffectMatrices = LMEffectMatrices(ResLMModelMatrix,responses=UCH$responses)
  ResPCALMEffects = PCALMEffects(ResLMEffectMatrices,method="ASCA-E")
  PlotScoresMatrix(ResPCALMEffects,
                  ModelAbbrev=FALSE,
@@ -58,12 +58,12 @@ Plot a matrix of scores graphs
                  alleffect = FALSE,
                  PCdim=c(2,2,2),
                  varname.colorup = "Citrate",
-                 vec.colorup = c("red","blue","green"),
+                 vec.colorup = c("blue","forestgreen","red"),
                  varname.pchup="Hippurate",
-                 vec.pchup=c(1,2,3),
-                 varname.pchdown = "Day",
-                 vec.pchdown = c(4,5),
+                 vec.pchup=c(4,16,2),
+                 varname.pchdown = "Time"
+                 vec.pchdown = c(1,3),
                  varname.colordown="Time",
-                 vec.colordown = c("brown","grey"))
+                 vec.colordown = c("orange","black"))
 
 }
